@@ -1,0 +1,9 @@
+.drawing {
+  width:300px;
+  height:300px;
+  margin:0 auto;
+}
+.figure-caption {
+  margin:0 auto;
+  font-size: 60%;
+}
