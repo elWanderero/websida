@@ -1,13 +1,13 @@
 <?php
 require($_SERVER['DOCUMENT_ROOT'] . "/php/DBconnect.php");
 
-// Hämta alla poster ur databasen.
+// HÃ¤mta alla poster ur databasen.
 $query = "SELECT title, text, svg_image, DATE_FORMAT(date, '%y-%m-%d') as date FROM blogpost ORDER BY date DESC";
 $result = $db_connection->query($query);
 
 $posts = $result->fetch_all(MYSQLI_ASSOC);
 
-// För varje post, rendera html.
+// FÃ¶r varje post, rendera html.
 $total_post_html = "";
 $is_first_post = true;
 foreach ($posts as $post) {
@@ -17,7 +17,7 @@ foreach ($posts as $post) {
   $date = $post['date'];
   if (! (is_null($title) || is_null($date)) && ! (is_null($text) && is_null($svg)) ) {
     $svg_html = '';
-    // Rendera SVG-html bara för poster i databasen med SVG.
+    // Rendera SVG-html bara fÃ¶r poster i databasen med SVG.
     if (! is_null($svg)) {
       $svg_html = "<div class='svg_here' style='display:none' svg='".$svg."'></div><br>";
     }
@@ -70,7 +70,8 @@ foreach ($posts as $post) {
     <![endif]-->
     
     <!-- jQuery -->
-    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <!--script type="text/javascript" src="js/jquery.min.js"></script-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!-- Daniels script -->
     <link href="index/index.css" rel="stylesheet">
     <script type="text/javascript" src="index/index.js"></script>
