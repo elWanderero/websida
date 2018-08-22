@@ -1,4 +1,5 @@
 <?php
+// Author: Daniel Zavala-Svensson
 require($_SERVER['DOCUMENT_ROOT'] . "/php/DBconnect.php");
 
 // Hämta alla poster ur databasen.
