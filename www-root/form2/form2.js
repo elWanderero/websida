@@ -1,21 +1,18 @@
-var blog_post_form_str = "form#blog_post_form";
-var bad_msg_str = "div#js_bad_msg";
-var good_msg_str = "div#js_good_msg";
-var post_blog_form;
-var bad_msg_el;
-var good_msg_el;
-var drawing;
-var lineCtr;
-var drawing_is_empty = true;
-
-var login_failed = true;
+const blog_post_form_str = "form#blog_post_form";
+const bad_msg_str = "div#js_bad_msg";
+const good_msg_str = "div#js_good_msg";
+let post_blog_form;
+let bad_msg_el;
+let good_msg_el;
+let drawing;
+let drawing_is_empty = true;
 
 function clearPassword() {
   "use strict";
   $("[type='password']").val("");
 }
-// Meddelanden från denna kod placeras på sidan med denna funktion.
-// .html8().text för att html entities ska hanteras korrekt.
+// Meddelanden frÃ¥n denna kod placeras pÃ¥ sidan med denna funktion.
+// .html8().text fÃ¶r att html entities ska hanteras korrekt.
 function putGoodMsg(msg) {
   "use strict";
   bad_msg_el.hide();
@@ -49,12 +46,12 @@ function postWithSalt(salt_str) {
   } else if (salt_str === "1") {
     putBadMsg("Anv&auml;ndarnamn ej funnet.");
   } else {
-    var usrname = post_blog_form.find("[name='username']").val();
-    var passw_salted_enc = $.md5(post_blog_form.find("[name='pwd']").val() + salt_str);
+    let usrname = post_blog_form.find("[name='username']").val();
+    let passw_salted_enc = $.md5(post_blog_form.find("[name='pwd']").val() + salt_str);
     clearPassword();
-    var title = post_blog_form.find("[name='title']").val();
-    var text = post_blog_form.find("[name='text']").val();
-    var svg_img;
+    let title = post_blog_form.find("[name='title']").val();
+    let text = post_blog_form.find("[name='text']").val();
+    let svg_img;
     if (drawing_is_empty) {
       svg_img = null;
     } else {
@@ -85,17 +82,17 @@ function postWithSalt(salt_str) {
   }
 }
 
-// Om allt är ok i formuläret så GET:as salt
-// från servern och postWithSalt anropas.
+// Om allt Ã¤r ok i formulÃ¤ret sÃ¥ GET:as salt
+// frÃ¥n servern och postWithSalt anropas.
 function onSubmit(event) {
   "use strict";
   event.preventDefault();
   good_msg_el.hide();
   bad_msg_el.hide();
-  var title = post_blog_form.find("[name='title']").val();
-  var text = post_blog_form.find("[name='text']").val();
-  var usrname = post_blog_form.find("[name='username']").val();
-  var pwd = post_blog_form.find("[name='pwd']").val();
+  let title = post_blog_form.find("[name='title']").val();
+  let text = post_blog_form.find("[name='text']").val();
+  let usrname = post_blog_form.find("[name='username']").val();
+  let pwd = post_blog_form.find("[name='pwd']").val();
   if (! title) {
     putBadMsg("Titeln f&aring;r inte vara tom.");
   } else if (! text && drawing_is_empty) {
@@ -115,11 +112,11 @@ function onSubmit(event) {
   }
 }
 
-/* Funkar såhär: Slumpar ett tal 0<x<1. Gör om x till sträng på hexadecimal form.
- * Slicar i början och slutet för att få korrekt längd och fullständigt slump-
- * intervall. Prependar en massa nollor pga problemet att om talet är för litet
- * Så blir strängen för kort, men en color på hexadecimal form ska ha en bestämd
- * längd. Slicar igen för att få rätt längd. Lägg på en '#'. Klart.
+/* Funkar sÃ¥hÃ¤r: Slumpar ett tal 0<x<1. GÃ¶r om x till strÃ¤ng pÃ¥ hexadecimal form.
+ * Slicar i bÃ¶rjan och slutet fÃ¶r att fÃ¥ korrekt lÃ¤ngd och fullstÃ¤ndigt slump-
+ * intervall. Prependar en massa nollor pga problemet att om talet Ã¤r fÃ¶r litet
+ * SÃ¥ blir strÃ¤ngen fÃ¶r kort, men en color pÃ¥ hexadecimal form ska ha en bestÃ¤md
+ * lÃ¤ngd. Slicar igen fÃ¶r att fÃ¥ rÃ¤tt lÃ¤ngd. LÃ¤gg pÃ¥ en '#'. Klart.
  */
 function rndColor() {
   "use strict";
@@ -142,27 +139,27 @@ function main() {
   bad_msg_el.hide();
   good_msg_el.hide();
   drawing = new SVG("drawing").size("100%", "100%");
-  var line;
-  // På mousedown i svgjs-drawingen skapas en ny linje.
-  // På mouseup avslutas linje. Funktionalitet från
+  let line;
+    // PÃ¥ mousedown i svgjs-drawingen skapas en ny linje.
+  // PÃ¥ mouseup avslutas linje. Funktionalitet frÃ¥n
   // draw.js, plugin till svgjs.
   drawing.on("mousedown", function(e) {
-    e.preventDefault(); //Så muspekaren inte förändras
+    e.preventDefault(); //SÃ¥ muspekaren inte fÃ¶rÃ¤ndras
     line = drawing.line().stroke({color: rndColor(), width: 10, linecap: "round"  });
     line.draw(e);});
   drawing.on("mouseup", function(e) {drawing_is_empty = false; line.draw(e);});
 
   post_blog_form.submit(onSubmit);
 }
-// En funktion som rekursivt returnerar callback-funktioner, för
-// att säkert ladda script en efter en. Welcome to callback hell.
+// En funktion som rekursivt returnerar callback-funktioner, fÃ¶r
+// att sÃ¤kert ladda script en efter en. Welcome to callback hell.
 function sequentialLoader(path_list) {
   "use strict";
   if (path_list.length === 0) {
     return main;
   } else {
-    var first_load_path = path_list[0];
-    var rest_of_path_list = path_list.slice(1);
+    let first_load_path = path_list[0];
+    let rest_of_path_list = path_list.slice(1);
     return function() {
       $.getScript(first_load_path, sequentialLoader(rest_of_path_list));
     };
@@ -173,7 +170,7 @@ function sequentialLoader(path_list) {
  * ENTRY POINT
  */
 if ($) {
-  var scripts = ["js/jquery.md5.min.js",
+  let scripts = ["js/jquery.md5.min.js",
                  "js/svg.min.js",
                  "form2/svg.draw.min.js",
                  "form2/lineable.min.js"];
