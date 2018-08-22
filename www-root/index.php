@@ -148,7 +148,7 @@ foreach ($posts as $post) {
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <p class="copyright text-muted">Copyright &copy; Daniel Zavala-Svensson 2017</p>
+                    <p class="copyright text-muted">Copyright &copy; Daniel Zavala-Svensson 2018</p>
                 </div>
             </div>
         </div>
