@@ -58,3 +58,9 @@ fabric.properties
 
 # Java project structure file (I think)
 *.iml
+
+################################
+#           Notepad++          #
+################################
+# Backups
+*.bak
