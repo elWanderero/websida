@@ -3,8 +3,8 @@ require("DBconnect.php");
 
 $post_successfull = "0";
 
-// Kollar lösenordet (som redan måste vara krypterat med md5) mot
-// databasen med prepared statements för säkerhetens skull.
+// Kollar lÃ¶senordet (som redan mÃ¥ste vara krypterat med md5) mot
+// databasen med prepared statements fÃ¶r sÃ¤kerhetens skull.
 $username = $_POST['username'];
 $stmt = $db_connection->prepare('SELECT password FROM users WHERE user_name = ?');
 if ($stmt) {
