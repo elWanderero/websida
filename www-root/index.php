@@ -5,7 +5,12 @@ require($_SERVER['DOCUMENT_ROOT'] . "/php/DBconnect.php");
 $query = "SELECT title, text, svg_image, DATE_FORMAT(date, '%y-%m-%d') as date FROM blogpost ORDER BY date DESC";
 $result = $db_connection->query($query);
 
-$posts = $result->fetch_all(MYSQLI_ASSOC);
+$posts = [];
+while ($row = $result->fetch_assoc()) {
+    $posts[] = $row;
+}
+// Loopen ovan ersätter det undre om mysqli::fetch_all inte finns på servern.
+// $posts = $result->fetch_all(MYSQLI_ASSOC);
 
 // För varje post, rendera html.
 $total_post_html = "";
