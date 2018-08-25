@@ -27,6 +27,6 @@ Andra problem med MD5 är också kända sedan länge att MD5, bl.a. att det inte
 Alternativ är SHA-2 och SHA-3, men dessa anses också vara för snabba för att kunna motstå brute-forceade preimage-attacker på ett bra sätt. För hashning av lösenord rekommenderas i allmänhet [Blowfish](https://sv.wikipedia.org/wiki/Blowfish). Eller så kan man bara hasha en miljon gånger om eller så, för att sakta ner processen.
 
 ## Säkerhet/kryptering i back-end
-Ingen mer kryptering sker i back-end. Det hashade lösenordet från klienten sparas direkt i databasen. Detta bör naturligtvis fixas, lösenordet bör krypteras igen på servern för att stulna lösenord inte skall gå att använda.
-
-All användarinput i textformat kodas med htmlentitities för att undvika XSS, och databas-queriet görs med prepared statements för att undvika kodinjketion.
+* Ingen mer kryptering sker i back-end. Det hashade lösenordet från klienten sparas direkt i databasen. Detta bör naturligtvis fixas, lösenordet bör krypteras igen på servern för att stulna lösenord inte skall gå att använda.
+* All användarinput i textformat kodas med htmlentitities för att undvika XSS, och databas-queriet görs med prepared statements för att undvika kodinjektion.
+* Autentiseringsuppgifter till databasen sparas såklart bara lokalt på servern. Numer iaf :grin:.
